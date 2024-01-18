@@ -9,6 +9,7 @@ public class ZombieController : MonoBehaviour
     //private bool _intro;
     public bool scream;
     public bool joy;
+    private bool waitforscream;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class ZombieController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animator.Play(IntroState);
         //_intro = true;
+        waitforscream = false;
 
     }
 
@@ -27,19 +29,26 @@ public class ZombieController : MonoBehaviour
             //_intro = false;
             Debug.Log("QuietoParao");
             StartCoroutine(Scream());
-
+            waitforscream = true;
+            //StartCoroutine(Joy());
 
             scream = false;
             joy = false;
 
         }
-        else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Scream"))
+        else if (scream)
         {
+            waitforscream = false;
+            StopCoroutine(Scream());
+            StartCoroutine(Joy());
             Debug.Log("Gritando!!");
         }
-        else 
+        else if (joy)
         {
+
             Debug.Log("Yupi");
+
+            
         }
 
     }
@@ -53,7 +62,8 @@ public class ZombieController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         _animator.Play("Scream");
         scream = true;
-        StartCoroutine(Joy());
+        //StartCoroutine(Joy());
+
 
     }
 
@@ -64,7 +74,7 @@ public class ZombieController : MonoBehaviour
         yield return new WaitForSeconds(10f);
         _animator.Play("JoyJump");
         joy = true;
-
+        //StopCoroutine(Joy());
 
     }
 
