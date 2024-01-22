@@ -32,23 +32,25 @@ public class ZombieController : MonoBehaviour
             waitforscream = true;
             //StartCoroutine(Joy());
 
-            scream = false;
+            scream = true;
             joy = false;
 
         }
-        else if (scream)
+        if (scream)
         {
             waitforscream = false;
             StopCoroutine(Scream());
             StartCoroutine(Joy());
             Debug.Log("Gritando!!");
+            scream = false;
+            joy = true;
         }
         else if (joy)
         {
 
             Debug.Log("Yupi");
+            StopCoroutine(Joy());
 
-            
         }
 
     }
@@ -61,7 +63,7 @@ public class ZombieController : MonoBehaviour
         
         yield return new WaitForSeconds(2f);
         _animator.Play("Scream");
-        scream = true;
+        //scream = true;
         //StartCoroutine(Joy());
 
 
@@ -73,7 +75,7 @@ public class ZombieController : MonoBehaviour
 
         yield return new WaitForSeconds(10f);
         _animator.Play("JoyJump");
-        joy = true;
+        //joy = true;
         //StopCoroutine(Joy());
 
     }
