@@ -50,6 +50,7 @@ public class ZombieController : MonoBehaviour
 
             Debug.Log("Yupi");
             StopCoroutine(Joy());
+            joy = false;
 
         }
 
